@@ -11,18 +11,25 @@ services:
       - APACHE_DOCUMENT_ROOT=/var/www/html/public
     depends_on:
       - db
+    networks:
+      - laravel_network
 
   db:
     image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: laravel
+      MYSQL_DATABASE: laravel_todolist
+      MYSQL_USER: laravel_user
       MYSQL_PASSWORD: secret
     volumes:
       - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - laravel_network
 
 volumes:
   db_data:
+
+networks:
+  laravel_network:
